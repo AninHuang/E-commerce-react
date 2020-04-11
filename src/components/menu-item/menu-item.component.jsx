@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import "./menu-item.styles.scss";
 
+// 設置 withRouter(MenuItem)，因而可取得 history, match ..等資訊
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
   <div
     className={`${size} menu-item`}
