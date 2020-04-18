@@ -12,7 +12,7 @@ const firebaseConfig = {
   appId: "1:249693776248:web:dfb436c9d1d51bee5a808d"
 };
 
-export const createUserProfileDoc = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   // Firestore returns us 2 types of objects:
