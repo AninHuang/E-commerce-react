@@ -23,11 +23,27 @@ class App extends React.Component {
 
   componentDidMount() {
     // Adds an observer for changes to the user's sign-in state
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-      // this.setState({ currentUser: user });
-      createUserProfileDoc(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDoc(userAuth);
 
-      console.log(user);
+        // Listen to a document
+        userRef.onSnapshot(snapshot => {
+          this.setState(
+            {
+              currentUser: {
+                id: snapshot.id,
+                ...snapshot.data()
+              }
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+        });
+      }
+
+      this.setState({ currentUser: userAuth });
     });
   }
 
