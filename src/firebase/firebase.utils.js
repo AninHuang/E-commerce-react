@@ -12,6 +12,37 @@ const firebaseConfig = {
   appId: "1:249693776248:web:dfb436c9d1d51bee5a808d"
 };
 
+export const createUserProfileDoc = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+
+  // Firestore returns us 2 types of objects:
+  // (1) QueryReference - it represents the 'current' place in the db that we're querying, it doesn't have actual data
+  //     Ex: firestore.doc('users/:userId')
+  // (2) QuerySnapshot - it contains zero or more DocumentSnapshot objects representing the results of a query
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+  console.log(snapShot);
+
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createAt,
+        ...additionalData
+      });
+    } catch (err) {
+      console.log("Creating user error ", err.message);
+    }
+  }
+
+  return userRef;
+};
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
