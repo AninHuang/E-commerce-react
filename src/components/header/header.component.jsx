@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // The ReactComponent import name is special and tells Create React App that you want a React component that renders an SVG, rather than its filename.
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import "./header.styles.scss";
 
 import { auth } from "../../firebase/firebase.utils";
@@ -31,6 +32,7 @@ const Header = ({ currentUser }) => (
       )}
       <CartIcon />
     </div>
+    <CartDropdown />
   </div>
 );
 
