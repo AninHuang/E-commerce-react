@@ -9,8 +9,8 @@ const CollectionPreview = ({ title, items }) => (
       {/* 效能問題：當 CollectionPreview 被重新渲染，以下區塊也會重 render */}
       {items
         .filter((item, index) => index < 4)
-        .map(({ id, ...otherItemProps }) => (
-          <CollectionItem key={id} {...otherItemProps} />
+        .map(item => (
+          <CollectionItem key={item.id} item={item} />
         ))}
     </div>
   </div>
