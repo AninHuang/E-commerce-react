@@ -1,12 +1,12 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   // 確認新增的是否為已存在之項目
   const existingCartItem = cartItems.find(
-    cartItem => cartItems.id === cartItemToAdd.id
+    cartItem => cartItem.id === cartItemToAdd.id
   );
 
   if (existingCartItem) {
     return cartItems.map(cartItem =>
-      cartItems.id === cartItemToAdd.id
+      cartItem.id === cartItemToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
