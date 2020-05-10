@@ -8,6 +8,9 @@ import "./header.styles.scss";
 
 import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
@@ -36,11 +39,17 @@ const Header = ({ currentUser, hidden }) => (
   </div>
 );
 
-// 簡潔 Destructure 的寫法：
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden
+// 使用 Selector 寫法：
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
 });
+
+// 簡潔 Destructure 的寫法：
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+//   currentUser,
+//   hidden
+// });
 
 // 原本的寫法：
 // const mapStateToProps = state => ({
