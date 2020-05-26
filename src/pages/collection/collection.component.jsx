@@ -9,7 +9,7 @@ const CollectionPage = ({ match }) => {
 
   // Then we can use match.params.collectionId
   return (
-    <div className="category">
+    <div className="collection-page">
       <h2>Collection Page</h2>
     </div>
   );
