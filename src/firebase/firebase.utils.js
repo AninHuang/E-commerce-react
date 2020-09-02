@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import collectionComponent from "../pages/collection/collection.component";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNB5SG5ojBDojsIC3fuywPDC1Wg5J_bbM",
@@ -9,7 +10,7 @@ const firebaseConfig = {
   projectId: "e-commerce-react-84c42",
   storageBucket: "e-commerce-react-84c42.appspot.com",
   messagingSenderId: "249693776248",
-  appId: "1:249693776248:web:dfb436c9d1d51bee5a808d"
+  appId: "1:249693776248:web:dfb436c9d1d51bee5a808d",
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -33,7 +34,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (err) {
       console.log("Creating user error ", err.message);
@@ -41,6 +42,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log(collectionRef);
 };
 
 firebase.initializeApp(firebaseConfig);
