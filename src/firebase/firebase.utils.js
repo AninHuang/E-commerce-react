@@ -22,8 +22,17 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   // (2) QuerySnapshot - it contains zero or more DocumentSnapshot objects representing the results of a query
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+  // const collectionRef = firestore.collection("users");
+
   const snapShot = await userRef.get();
-  console.log(snapShot);
+  // const collectionSnapshot = await collectionRef.get();
+
+  // console.log(snapShot);
+  // console.log(collectionSnapshot);
+
+  // const collection = collectionSnapshot.docs.map((doc) => doc.data());
+
+  // console.log(collection);
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
@@ -44,9 +53,24 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
   const collectionRef = firestore.collection(collectionKey);
   console.log(collectionRef);
+
+  // 批量寫入: 一個批處理執行多個寫操作
+  // Get a new write batch
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc(obj.title);
+    console.log(newDocRef);
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
 };
 
 firebase.initializeApp(firebaseConfig);
