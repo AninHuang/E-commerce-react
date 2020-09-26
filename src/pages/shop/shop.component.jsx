@@ -21,7 +21,9 @@ class ShopPage extends React.Component {
     // the collectionRef will send the snapshot representing the code of our collection objects array at the time when this code renders
     collectionRef.onSnapshot(async (snapshot) => {
       console.log(snapshot); // QuerySnapshot
-      convertCollectionsSnapshotToMap(snapshot);
+
+      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+      console.log(collectionsMap);
     });
   }
 
