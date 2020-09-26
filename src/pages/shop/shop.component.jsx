@@ -4,7 +4,10 @@ import { Route } from "react-router-dom";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.component";
 
-import { firestore } from "../../firebase/firebase.utils";
+import {
+  firestore,
+  convertCollectionsSnapshotToMap,
+} from "../../firebase/firebase.utils";
 
 // Class based Component
 class ShopPage extends React.Component {
@@ -18,6 +21,7 @@ class ShopPage extends React.Component {
     // the collectionRef will send the snapshot representing the code of our collection objects array at the time when this code renders
     collectionRef.onSnapshot(async (snapshot) => {
       console.log(snapshot); // QuerySnapshot
+      convertCollectionsSnapshotToMap(snapshot);
     });
   }
 
